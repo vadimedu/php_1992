@@ -1,21 +1,46 @@
 <?php
-    $name = readline("Введите Ваше имя! \n");
-    $age = readline("Введите Ваш возраст! \n");
-    $str = "Вас зовут $name, вам $age лет";
-    echo $str;
+    do {
+        $answer = readline("В каком году произшло крещение Руси? Варианты: 810, 988, 740 год. ");
+        if ($answer === "988") {
+            echo "Правильный ответ. Поздравляю!";
+            break;
+        }
+        if ($answer === "810" || $answer === "740"){
+            echo "Ошибка!";
+            break;
+        }
+    } while(true);
 ?>
 
 <?php
-$my_task = array();
-$time_required = array();
-    for ($i=0; $i < 3; $i++) {
-        $my_task[] = readline("Какая задача стоит перед вами сегодня? \n");
-        $time_required[] = readline("Сколько примерно времени эта задача займет? \n");
+    do {
+        $number = (int)readline("Введите количество задач, запланированных на сегодня? ");
+    } while ($number <= 0);
+
+    $output = "Сегодня у Вас запланировано: $number задач:\n";
+    $summa = 0;
+
+    for ($i = 1; $i <= $number; $i++) {
+        $task =readline("какая задача запланирована сегодня? ");
+        $period = (int)readline("Сколько требуется времени? ");
+        $output .= " $task ({$period} ч). \n";
+        $summa += $period;
     }
 
-    echo "$name, сегодня у вас запланировано 3 приоритетных задачи на день:  \n";
-    for ($i=0; $i < count($my_task); $i++) {
-        echo $my_task[$i] . " (" . $time_required[$i] . ")\n";
-    }
-    echo "Примерное время выполнения плана = " . array_sum($time_required) . "ч";
+    echo $output;
+    echo "Требуемое время: {$summa} ч.";
+?>
+
+<?php
+    do {
+        $num = (int)readline('Введите значение больше нуля:');
+    } while ($num <= 0);
+    $fingerNumber = $num % 8;
+        if ($fingerNumber == 0) {
+            $fingerNumber = 2;
+        }
+        if ($fingerNumber > 5) {
+            $fingerNumber = 10 - $fingerNumber;
+        }
+        echo "Номер пальца: $fingerNumber";
 ?>

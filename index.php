@@ -1,46 +1,85 @@
 <?php
-    do {
-        $answer = readline("В каком году произшло крещение Руси? Варианты: 810, 988, 740 год. ");
-        if ($answer === "988") {
-            echo "Правильный ответ. Поздравляю!";
-            break;
-        }
-        if ($answer === "810" || $answer === "740"){
-            echo "Ошибка!";
-            break;
-        }
-    } while(true);
+$callback = function($value){
+    if ($value % 2 === 0){
+        return "$value четное число";
+    };
+    return "$value нечетное число";
+};
+    $arrayList = [4,5,1,4,7,8,15,6,71,45,2];
+    $arrayFiltered = array_map( $callback, $arrayList);
+    print_r($arrayFiltered);
 ?>
 
 <?php
-    do {
-        $number = (int)readline("Введите количество задач, запланированных на сегодня? ");
-    } while ($number <= 0);
-
-    $output = "Сегодня у Вас запланировано: $number задач:\n";
-    $summa = 0;
-
-    for ($i = 1; $i <= $number; $i++) {
-        $task =readline("какая задача запланирована сегодня? ");
-        $period = (int)readline("Сколько требуется времени? ");
-        $output .= " $task ({$period} ч). \n";
-        $summa += $period;
+    $data = [1,2,3,4,5,6,7,8,9,10];
+    $maxMinAvg = [];
+    function calc(array &$arg1, array &$arg2) {
+         $arg1["максимум"] =  max($arg2);
+         $arg1["минимум"] = min($arg2);
+         $arg1["среднее"] = array_sum($arg2)/count($arg2);
+         return $arg1;
     }
 
-    echo $output;
-    echo "Требуемое время: {$summa} ч.";
+    calc($maxMinAvg, $data);
+    print_r($maxMinAvg);
+    print_r("максимальное значение {$maxMinAvg['максимум']}; \n");
+    print_r("минимальное значение {$maxMinAvg['минимум']}; \n");
+    print_r("среднее значение {$maxMinAvg['среднее']}; \n");
 ?>
 
 <?php
-    do {
-        $num = (int)readline('Введите значение больше нуля:');
-    } while ($num <= 0);
-    $fingerNumber = $num % 8;
-        if ($fingerNumber == 0) {
-            $fingerNumber = 2;
+$box = [
+    [
+        0 => 'Тетрадь',
+        1 => 'Книга',
+        2 => 'Настольная игра',
+        3 => [
+            'Настольная игра',
+            'Настольная игра',
+        ],
+        4 => [
+            [
+                'Ноутбук',
+                'Зарядное устройство'
+            ],
+            [
+                'Компьютерная мышь',
+                'Набор проводов',
+                [
+                    'Фотография',
+                    'Картина'
+                ]
+            ],
+            [
+                'Инструкция',
+                [
+                    'Ключ'
+                ]
+            ]
+        ]
+    ],
+    [
+        0 => 'Пакет кошачьего корма',
+        1 => [
+            'Музыкальный плеер',
+            'Книга'
+        ]
+    ]
+ ];
+
+function test_print(array $item, $thing){
+    foreach ($item as $key => $value) {
+        if (is_array($value)) {
+            test_print($value, $thing);
+        } else {
+            if($value === $thing){
+                $isInBox = true;
+                return print_r($isInBox);
+            }
         }
-        if ($fingerNumber > 5) {
-            $fingerNumber = 10 - $fingerNumber;
-        }
-        echo "Номер пальца: $fingerNumber";
+
+    }
+}
+test_print($box, "Книга");
+
 ?>
